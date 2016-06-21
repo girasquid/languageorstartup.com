@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Language, or tech startup?</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
+  <link href="basscss.min.css" rel="stylesheet">
+  <style type='text/css'>
+    body {font-family: 'Open Sans','lucida grande',tahoma,verdana,arial,sans-serif;color:#333;font-size:1.3rem;margin:0;}
+    .splash {min-height:100vh; }
+    .hidden {display: none;}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="clearfix">
+      <div class="center px3 py4 splash">
+        <h1>Language, or tech startup?</h1>
+        <p><strong>How well do you know your languages and tech startups?</strong></p>
+        <p class="muted">Put your skills to the test.</p>
+        <a href="#play" class="btn regular bg-teal white">Play!</a>
+      </div>
+
+      <a name="play"></a>
+      <div class="center px3 py4 splash">
+        <h1 id='name'></h1>
+        <p id='streak-container'><strong id='streak'></strong></p>
+        <p id='last-round-container' class="muted hidden">Last round: <span id='last-round-name'></span>, <span id='last-round-kind'></span></p>
+        <a id='guess-language' class="btn bg-aqua white">language</a>
+        <a id='guess-startup' class="btn bg-purple white">startup</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="center">
+    <div class="block bg-silver">
+      <div class="bg-lighten-4 mx-auto center py1 h6"><a href="http://lukehutscal.com">Luke Hutscal</a> made this!<br><a href="https://github.com/girasquid/languageorstartup.com">Want to know how it was made?</a> <a id="reset-progress" href="#play">reset your progress?</a></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  var STARTUPS = ["boom", "airmada", "alphaflow", "birdly", "bonsai", "careskore", "castle", "chatfuel", "chitter", "compgun", "copia", "cover", "deako", "deepgram", "dosedr", "elucify", "emburse", "enflux", "flexreceipts", "getaccept", "gigwell", "gitprime", "golorry", "goodybag", "halolife", "hingeto", "histowiz", "hykso", "index", "innovein", "instabug", "konsus", "landed", "lattice", "lendedu", "locent", "lygos", "lynks", "magicbus", "mailtime", "meterfeeder", "mineralsoft", "monthli", "mrelief", "mux", "netbeez", "nova", "nurx", "opentrons", "osvehicle", "outschool", "pavelq", "paystack", "petcube", "pluot", "pocketsuite", "podium", "poppy", "prompt", "protonet", "pulpix", "queuehop", "rappi", "redspread", "restocks", "revl", "secful", "sendbird", "sharethebus", "shri", "shypmate", "skymind", "snapeda", "soundboks", "startclosing", "stilt", "stitch", "streamup", "strongintro", "stylebee", "sunfarmer", "thunkable", "tovala", "toymail", "trac", "trendmd", "truebill", "unima", "unnyworld", "uplabs", "vinebox", "wakie", "worldcover", "x-zell", "yardbook", "zenprospect", "zenysis", "afrostream", "appcanary", "bistrobot", "bitmovin", "bluecrew", "bodyport", "careledger", "chaldal", "cloudstitch", "convox", "cymmetria", "eden", "flirtey", "fonticons", "foxpass", "gemnote", "getscale", "gigster", "givecampus", "govpredict", "gravitational", "greenshoe", "growsumo", "her", "heroiclabs", "hickory", "innerspace", "instawork", "interviewed", "ironclad", "jopwell", "klarismo", "leada", "lugg", "luna", "maderight", "markhor", "microhealth", "mimir", "nebia", "newstory", "ohm", "onboardiq", "oolu", "openinvest", "paribus", "plateiq", "platejoy", "picktrace", "redcarpet", "roomblocker", "scentbird", "scopear", "serica", "sharescale", "shotput", "smyte", "supply", "sywork", "sourcedna", "teabot", "tenantturner", "tesorio", "tetrascience", "ticketfairy", "triplebyte", "vest", "vive", "voiq", "willing", "xendit", "xfers", "zeplin", "atomwise", "bankjoy", "bluesmart", "bonfire", "booktrope", "bright", "buildscience", "chariot", "cinder", "cleanly", "cloudmedx", "cribspot", "dealyze", "democracyos", "diassess", "dronebase", "equipmentshare", "final", "gitlab", "givemetap", "giveffect", "gradberry", "groupahead", "grubmarket", "higherme", "insitevr", "instavest", "kickpay", "kickback", "kuhcoon", "labdoor", "level", "luka", "lully", "lumi", "magic", "mashgin", "meadow", "metricwire", "moltin", "nextravel", "nomiku", "omniref", "outbound", "pachyderm", "pakible", "paperspace", "pigeonly", "platzi", "pomello", "priime", "pushmarket", "razorpay", "reschedule", "readme", "sirum", "seed", "shiftlabs", "sigopt", "slidemail", "smarking", "smarthires", "smartspot", "spire", "spoil", "taskpipes", "teamnote", "techlist", "themidgame", "trackin", "transcriptic", "transitmix", "treeline", "vanhawks", "vertical", "vetpronto", "worklife", "yhat", "zenflow", "analyticsmd", "ebrandvalue", "aptible", "bannerman", "beep", "billforward", "blockscore", "blockspring", "carlypso", "checkr", "cleartax", "doblet", "fixed", "flynn", "flytenow", "front", "greentoe", "hive", "impraise", "kash", "livblends", "mtailor", "naytev", "oklo", "onename", "paid", "parenthoods", "payable", "persistiq", "picnichealth", "quora", "roomstorm", "roost", "shift", "shipbob", "shout", "smarthires", "tinker", "weave", "whirl", "zenamins", "abacus", "airhelp", "airpair", "algolia", "ambition", "aptdeco", "beacon", "bellabeat", "boostable", "cambly", "camperoo", "caremessage", "codecombat", "codenow", "eventjoy", "flexport", "gbatteries", "gobble", "hoverchat", "kimono", "madesolid", "memebox", "minuum", "orankl", "piinpoint", "povio", "pushbullet", "rickshaw", "rocketrip", "sendwithus", "shoobs", "sketchdeck", "stacklead", "superhost", "taplytics", "terravion", "threadable", "tradeblock", "truevault", "unbabel", "vidpresso", "weave", "zesty", "zidisha", "zinc", "zowpow", "amulyte", "apptimize", "asseta", "bloomthat", "buttercoin", "casetext", "coreos", "crowdery", "datarank", "doordash", "easypost", "estimote", "fanhero", "floobits", "glio", "gocomm", "hackermeter", "hum", "ixi-play", "kivo", "lob", "localon", "lumoid", "orbsccg", "prim", "realcrowd", "reebee", "regalii", "senic", "simplelegal", "soundfocus", "spoonrocket", "statuspage", "teleborder", "toutpost", "watchsend", "webflow", "weilos", "airware", "beatdeck", "bitnami", "buildzoom", "circuitlab", "crowdmed", "errplane", "fivetran", "flightcar", "goldbely", "lawdingo", "lollipuff", "medisas", "meldium", "microryza", "myo", "padlet", "paytango", "posmetrics", "prizeo", "screenhero", "simplyinsured", "strikingly", "styleup", "svbtle", "swapbox", "swish", "teespring", "terascore", "watsi", "wefunder", "wevorce", "zaranga", "zenefits", "airbrite", "amicus", "authy", "bigcalc", "boostedboards", "bufferbox", "circular", "clever", "coinbase", "collections", "datanitro", "diaspora", "dreamforge", "easel", "eligible", "flightfox", "fundersclub", "getgoing", "grid", "himom", "hiptype", "hubchilla", "imgfave", "instacart", "kamcord", "kippt", "knowmia", "leanmarket", "lighttable", "markupwand", "microeval", "myvr", "newsblur", "plivo", "profig", "quicklychat", "reelsurfer", "registrylove", "scoutzie", "smartasset", "spinpunch", "sponsorfied", "statwing", "studyedge", "submittable", "survata", "tapin", "tastemaker", "testmunk", "tomoguides", "vastrm", "vayable", "viacycle", "virool", "voicegem", "zapier", "anyperk", "anyvivo", "ark", "carsabi", "chute", "coderwall", "dealupa", "embark", "everyart", "exec", "familyleaf", "farmlogs", "flutter", "flypad", "givespark", "grouper", "hackpad", "hireart", "icracked", "installmonetizer", "kyte", "lendup", "makegameswithus", "matterport", "medigram", "midnox", "minefold", "pair", "plangrid", "popset", "priceonomics", "screenleap", "sendhub", "shoptiques", "socialcam", "sonalight", "swiftype", "tikl", "zillabyte", "agilediagnosis", "can'twait", "codecademy", "debteye", "doublerecall", "everyme", "firebase", "freshplum", "glassmap", "gocardless", "interstate", "kicksend", "leaky", "marketbrief", "meteor", "mixrank", "mobileworks", "mongohq", "opez", "pagelever", "paperlinks", "parse", "picplum", "proxino", "quartzy", "rentobo", "segment", "sellstage", "siasto", "snapjoy", "stypi", "tagstand", "tapengage", "verbling", "vidyard", "vimessa", "yardsale", "zenbox", "zigfu", "acunote", "appharbor", "beetailer", "bridge", "chirply", "circle", "curebit", "custora", "drchrono", "earbits", "fitfu", "giftrocket", "grove", "grubwithus", "hellofax", "hype", "hyperink", "kaleidoscope", "lanyrd", "mailgun", "memsql", "minomonsters", "noteleaf", "nowjs", "orderahead", "sendoid", "swipegood", "talkbin", "taskforce", "tellfi", "trustegg", "tutorspree", "upverter", "whereberry", "yougotlistings", "zerocater", "adgrok", "aerofs", "anyleaf", "brushes", "chartio", "crowdbooster", "dotcloud", "fanpulse", "futureadvisor", "gantto", "gazehawk", "ginzametrics", "hipmunk", "indinero", "koduco", "leftronic", "messageparty", "ohlife", "opzi", "pagerduty", "rapportive", "readyforzero", "simperium", "stripe", "tapzilla", "teevox", "whereoscope", "workflowy", "browsarity", "cardpool", "chromaom", "crocodoc", "cue", "datamarketplace", "embedly", "embedster", "etacts", "fabricly", "gamador", "homejoy", "infoharmoni", "launchhear", "mertado", "movity", "newslabs", "notifo", "nowmov", "optimizely", "ownlocal", "swagapalooza", "tweetflow", "zencoder", "zenedy", "bump", "carwoo", "dailybooth", "fanchatter", "flightcaster", "graffitigeo", "highlightcam", "instantq", "jobpic", "jobspice", "lingt", "listia", "lockitron", "meetingmix", "mixpanel", "olark", "plurchase", "renthop", "rethinkdb", "tuxebo", "wakemate", "wepay", "adioso", "airbnb", "cloudkick", "divvyshot", "echodio", "foodoro", "heyzap", "nambii", "picurio", "pocketfungames", "propable", "remail", "skysheet", "thesixtyone", "voxli", "wattvision", "anyvite", "awesomehighlighter", "backtype", "contestmachine", "frogmetrics", "ididwork", "meetcast", "picwing", "polleverywhere", "popcuts", "posterous", "precognate", "scoopler", "slinkset", "snipd", "socialbrowse", "startuply", "ticketstumbler", "urbantakeover", "youlicit", "addmired", "chatterous", "deluux", "fathomdb", "heroku", "insoshi", "joberator", "mightyquiz", "mixwit", "ninite", "omnisio", "rescuetime", "snaptalent", "tipjoy", "webmynd", "wundrbar", "yumdots", "adpinion", "appjet", "biographicon", "bountii", "clickpass", "clouding", "disqus", "draftmix", "dropbox", "fuzzwich", "ijigg", "reble", "slapvid", "socialpicks", "songkick", "splashup", "auctomatic", "buxfer", "heysan", "octopart", "parakey", "socialmoth", "tsumobi", "virtualmin", "weebly", "writewith", "zenter", "jamglue", "jumpchat", "likebetter", "omgpop", "pollground", "scribd", "shoutfit", "talkito", "thinkature", "xobni", "audiobeta", "clustrix", "flagr", "inklingmarkets", "snipshot", "wufoo", "youos", "clickfacts", "infogami", "kiko", "loopt", "memamp", "reddit", "simmery", "textpayme"];
+  var SEEN_STARTUPS = [];
+  var LANGUAGES = ["abaza", "abenaki", "abkhaz", "adangme", "adangbe", "adyghe", "afar", "afrikaans", "ainu", "akan", "albanian", "aleut", "amdang", "amharic", "angika", "apache", "arabic", "aragonese", "aramaic", "arapaho", "armenian", "arrernte", "assamese", "asturian", "avar", "avestan", "aymara", "azerbaijani", "baga", "bai", "balinese", "balti", "bambara", "bantu", "basa-gumna", "bashkir", "basque", "bassa", "batak", "belarusian", "bemba", "bengali", "berber", "berta", "bhojpuri", "bislama", "blackfoot", "bodo", "bosnian", "braille", "breton", "buginese", "buhid", "bulgarian", "burmese", "cahuilla", "cantonese", "carrier", "catalan", "cayuga", "cebuano", "chamorro", "chechen", "cherokee", "chewa", "cheyenne", "chhattisgarhi", "chickasaw", "chinese", "chipewyan", "choctaw", "chuvash", "cimbrian", "comanche", "coptic", "cornish", "corsican", "cree", "croatian", "czech", "dakhini", "dakota", "dalecarlian", "danish", "dargwa", "dari", "dhivehi", "drehu", "dungan", "dutch", "dzongkha", "english", "erzya", "esperanto", "estonian", "evenki", "ewe", "eyak", "faroese", "fijian", "filipino", "finnish", "fon", "french", "friulian", "fula", "fur", "ga", "galician", "gan", "ge'ez", "georgian", "german", "gikuyu", "gilbertese", "godoberi", "greek", "greenlandic", "gujarati", "gumuz", "gurung", "gwich'in", "haida", "hainanese", "hakka", "harari", "hausa", "hawaiian", "hebrew", "herero", "himba", "hindi", "hindustani", "hmong", "hopi", "hungarian", "icelandic", "ido", "igbo", "ik", "ilocano", "indonesian", "ingush", "interlingua", "inuktitut", "inupiat", "irish", "italian", "japanese", "javanese", "judaeo-spanish", "jutish", "kabardian", "kabyle", "kaingang", "kannada", "kanuri", "karakalpak", "karamojong", "karelian", "kashmiri", "kashubian", "kazakh", "kendeje", "khakas", "khmer", "khoekhoe", "khowar", "kinyarwanda", "kiribati", "konkani", "korean", "kuliak", "kumyk", "kurdish", "kutchi", "kwadi", "ladakhi", "ladin", "lakota", "lao", "latvian", "laz", "leonese", "lepcha", "limbu", "limburgish", "lingala", "lisu", "lithuanian", "livonian", "luba-kasai", "luganda", "luo", "luri", "luxembourgish", "maasai", "macedonian", "magahi", "magar", "maithili", "makassarese", "malay", "malayalam", "maltese", "manchu", "mandarin", "manx", "marathi", "marshallese", "masalit", "meitei", "miami-illinois", "min", "mon", "mongolian", "musgu", "muskum", "nagumi", "nahuatl", "navajo", "ndyuka", "nepali", "ngbee", "norwegian", "nuosu", "nyangia", "occidental", "occitan", "ojibwe", "omotik", "odia", "pahari", "palula", "persian", "phoenician", "piman", "pipil", "pitjantjatjara", "plautdietsch", "polish", "portuguese", "raga", "rajasthani", "romani", "romanian", "romansh", "russian", "rusyn", "ruthenian", "sami", "samoan", "sanskrit", "sardinian", "saurashtra", "scots", "serbian", "shan", "shanghaiese", "shona", "sicilian", "sikkimese", "sindhi", "sinhala", "slovak", "slovene", "somali", "sotho", "spanish", "stellingwarfs", "sundanese", "swahili", "swedish", "sylheti", "tagalog", "tahitian", "turkish", "tamang", "tamil", "tangut", "tatar", "telugu", "tepes", "teribe", "tetum", "thai", "tibetan", "tigrinya", "tongan", "tongva", "tsez", "tswana", "tuareg", "turkish", "uduk", "ukrainian", "urdu", "uyghur", "uzbek", "valencian", "venda", "venetian", "vietnamese", "walloon", "warlpiri", "welsh", "wolof", "wu", "xaracuu", "xhosa", "xiang", "xibe", "yapese", "yiddish", "yoruba", "yue", "zhuang", "zulu", "'phags-pa", "abkhaz", "anglo-saxon", "avestan", "bopomofo", "borama", "carian", "deseret", "glagolitic", "kulitan", "n'ko", "osmanya", "runic", "shavian", "tagbanwa", "amoy", "fuzhou", "kwanyama", "hokkien", "ningbo", "pothohari", "quanzhou", "saraiki", "seroa", "teochew"];
+  var SEEN_LANGUAGES = [];
+
+  var startupClass = "purple";
+  var languageClass = "aqua";
+
+  var currentSelection, streak, bestStreak;
+  function play() {
+    currentSelection = null;
+    streak = 0;
+    bestStreak = localStorage.getItem('best-streak') || 0;
+    loop();
+  }
+
+  function loop() {
+    if(currentSelection != null) {
+      document.getElementById("last-round-container").setAttribute("class", "muted");
+      document.getElementById('last-round-name').innerHTML = currentSelection;
+      if(STARTUPS.indexOf(currentSelection) != -1) {
+        document.getElementById('last-round-kind').innerHTML = "startup";
+        document.getElementById('last-round-kind').setAttribute("class", startupClass);
+      } else {
+        document.getElementById('last-round-kind').innerHTML = "language";
+        document.getElementById('last-round-kind').setAttribute("class", languageClass);
+      }
+    }
+    document.getElementById('streak').innerHTML = "Streak: " + streak + " (best: " + bestStreak + ")";
+    if(Math.random() > 0.5) {
+      var availableStartups = difference(STARTUPS, SEEN_STARTUPS);
+      // They've seen all the startups!
+      if(availableStartups.length == 0) {
+        SEEN_STARTUPS = [];
+        availableStartups = STARTUPS;
+      }
+      currentSelection = availableStartups[Math.floor(Math.random() * availableStartups.length)];
+    } else {
+      var availableLanguages = difference(LANGUAGES, SEEN_LANGUAGES);
+      // They've seen all the languages!
+      if(availableLanguages.length == 0) {
+        SEEN_LANGUAGES = [];
+        availableLanguages = LANGUAGES;
+      }
+      currentSelection = availableLanguages[Math.floor(Math.random() * availableLanguages.length)];
+    }
+    document.getElementById('name').innerHTML = currentSelection;
+  }
+
+  document.getElementById('guess-language').onclick = guess(LANGUAGES, SEEN_LANGUAGES);
+  document.getElementById('guess-startup').onclick = guess(STARTUPS, SEEN_STARTUPS);
+
+  function guess(typeOfThing, trackingArray) {
+    return function() {
+      trackingArray.push(currentSelection);
+      if(typeOfThing.indexOf(currentSelection) != -1) {
+        streak++;
+        if(streak > bestStreak) {
+          bestStreak = streak;
+          localStorage.setItem("best-streak", bestStreak);
+        }
+      } else {
+        streak = 0;
+      }
+      loop();
+    }
+  }
+
+  document.getElementById("reset-progress").onclick = function() {
+    localStorage.clear();
+    play();
+  };
+  play();
+  // http://stackoverflow.com/a/30288946
+  function difference(a1, a2) {
+    var a2Set = new Set(a2);
+    return a1.filter(function(x) { return !a2Set.has(x); });
+  }
+  </script>
+</body>
+</html>
